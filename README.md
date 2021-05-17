@@ -28,3 +28,14 @@ gradlew build
 Ennek hatására létrejön a `/build/libs/*.jar`. És ezt el lehet indítani
 a következő paranccsal: `java -jar employees-0.0.1-SNAPSHOT.jar`
 
+```shell
+gradlew dependencyUpdates
+```
+
+## Jacoco
+
+```shell
+gradlew clean build
+```
+
+Nyisd meg a `\build\reports\jacoco\test\html\index.html` állományt!
