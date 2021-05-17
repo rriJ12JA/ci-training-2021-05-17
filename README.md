@@ -39,3 +39,15 @@ gradlew clean build
 ```
 
 Nyisd meg a `\build\reports\jacoco\test\html\index.html` állományt!
+
+## Docker
+
+Parancssor Futtatás rendszergazdaként
+
+```shell
+net localgroup docker-users OKTATAS\T360-v5-DEAC-o /add
+docker version
+docker run hello-world
+```
+
+Közben kellett egy kilép/belép
