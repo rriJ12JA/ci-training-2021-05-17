@@ -12,3 +12,9 @@ cd ci-training-2021-05-17\hello-gradle
 
 gradlew hello
 ```
+
+```shell
+git pull
+
+gradlew bootRun
+```
