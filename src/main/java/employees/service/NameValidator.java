@@ -10,7 +10,8 @@ public class NameValidator implements ConstraintValidator<Name, String> {
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         return value != null &&
-                !value.isBlank() &&
+                //!value.isBlank() &&
+		value.trim().length() > 0 &&
                 value.length() > 2 &&
                 value.length() <= maxLength &&
                 Character.isUpperCase(value.charAt(0))

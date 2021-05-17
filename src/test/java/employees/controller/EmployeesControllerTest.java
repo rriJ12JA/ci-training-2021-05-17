@@ -28,7 +28,7 @@ public class EmployeesControllerTest {
     void testCreateEmployee() {
         when(employeesService.createEmployee(any())).thenReturn(new EmployeeDto(1L, "John Doe"));
 
-        var employeeDto = employeesController.createEmployee(new CreateEmployeeCommand("John Doe"));
+        EmployeeDto employeeDto = employeesController.createEmployee(new CreateEmployeeCommand("John Doe"));
 
         verify(employeesService).createEmployee(argThat(command -> command.getName().equals("John Doe")));
         assertEquals(1L, employeeDto.getId());
