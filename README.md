@@ -18,3 +18,5 @@ git pull
 
 gradlew bootRun
 ```
+
+Elérhető a `http://localhost:8080/swagger-ui.html` címen.
