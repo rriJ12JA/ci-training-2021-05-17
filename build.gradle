@@ -14,6 +14,21 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+    integrationTest {
+        java.srcDir "$projectDir/src/integration/java"
+        resources.srcDir "$projectDir/src/integration/resources"
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -35,6 +50,16 @@ dependencies {
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.mockito:mockito-junit-jupiter'
     testImplementation 'org.assertj:assertj-core'
+
+    integrationTestImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+    integrationTestImplementation 'io.rest-assured:json-path'
+    integrationTestImplementation 'io.rest-assured:json-schema-validator'
+    integrationTestImplementation 'io.rest-assured:rest-assured'
+    integrationTestImplementation 'io.rest-assured:spring-mock-mvc'
+
 }
 
 test {
@@ -44,4 +69,27 @@ test {
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
+}
+
+tasks.register('integrationTest', Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    useJUnitPlatform()
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    shouldRunAfter test
+    finalizedBy jacocoTestReport
+}
+
+check.dependsOn integrationTest
+
+jacocoTestReport {
+
+    reports {
+       xml.enabled true
+       csv.enabled true
+   }
+   getExecutionData().setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
 }
