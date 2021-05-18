@@ -194,3 +194,28 @@ Hozzáférés a host Dockerjéhez:
 ```shell
 docker exec --user root -it employees-jenkins chmod 777 /var/run/docker.sock
 ```
+
+## SonarQube
+
+```shell
+docker run --name employees-sonarqube --detach 
+  --network jenkins 
+  --publish 9000:9000 
+  sonarqube:lts
+
+gradlew test assemble sonarqube
+```
+
+## Nexus
+
+```shell
+docker run --name nexus --detach
+  --network jenkins
+  --publish 8091:8081
+   --publish 8092:8082
+  --volume nexus-data:/nexus-data
+  sonatype/nexus3
+
+gradlew assemble publish
+```
+
