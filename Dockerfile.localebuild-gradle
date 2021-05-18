@@ -1,0 +1,9 @@
+FROM gradle:7.0.2-jdk8 as builder
+WORKDIR app
+COPY . .
+RUN gradle test assemble
+
+FROM adoptopenjdk:11-jre-hotspot
+WORKDIR app
+COPY --from=builder /home/gradle/app/build/libs/*.jar ./employees.jar
+ENTRYPOINT ["java", "-jar", "employees.jar"]

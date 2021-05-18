@@ -1,0 +1,9 @@
+FROM adoptopenjdk:11-jdk-hotspot as builder
+WORKDIR app
+COPY . .
+RUN ./gradlew test assemble
+
+FROM adoptopenjdk:11-jre-hotspot
+WORKDIR app
+COPY --from=builder app/build/libs/*.jar ./employees.jar
+ENTRYPOINT ["java", "-jar", "employees.jar"]

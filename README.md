@@ -172,3 +172,19 @@ gradlew dockerRun
 gradlew dockerRunStatus
 gradlew dockerStop
 ```
+
+## Jenkins
+
+```shell
+docker build -t employees-jenkins --file Dockerfile.jenkins .
+docker network create jenkins
+docker run 
+  --detach 
+  --network jenkins 
+  --volume jenkins-data:/var/jenkins_home 
+  --volume /var/run/docker.sock:/var/run/docker.sock 
+  --publish 8090:8080 
+  --name employees-jenkins 
+  employees-jenkins
+docker exec -it employees-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
