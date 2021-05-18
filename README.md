@@ -188,3 +188,9 @@ docker run
   employees-jenkins
 docker exec -it employees-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+
+Hozzáférés a host Dockerjéhez:
+
+```shell
+docker exec --user root -it employees-jenkins chmod 777 /var/run/docker.sock
+```
