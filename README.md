@@ -162,3 +162,13 @@ Az `integrationtest` könyvtárban a következő parancsot:
 ```shell
 docker-compose up --abort-on-container-exit
 ```
+
+A `.docker/config.json` fájl törlése.
+
+## Docker futtatás Gradle-ből
+
+```shell
+gradlew dockerRun
+gradlew dockerRunStatus
+gradlew dockerStop
+```

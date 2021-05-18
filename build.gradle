@@ -4,6 +4,7 @@ plugins {
 	id 'java'
         id "com.github.ben-manes.versions" version "0.38.0"
         id 'jacoco'
+        id 'com.palantir.docker-run' version '0.26.0'
 }
 
 group = 'training'
@@ -96,4 +97,10 @@ jacocoTestReport {
        csv.enabled true
    }
    getExecutionData().setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
+}
+
+dockerRun {
+    name 'employees-from-gradle'
+    image 'employees'
+    ports '8082:8080'
 }
