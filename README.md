@@ -105,3 +105,15 @@ docker exec -it employees-mariadb mysql employees
 
 select * from employees;
 ```
+
+## Futtatás a Hub-ról
+
+```shell
+docker run -p 8080:8080 --name tr360-employee training360/employees-ci20210518
+docker stop tr360-employee
+```
+
+```
+docker build -t employees .
+docker run -p 8080:8080 --name my-employee employees
+```
