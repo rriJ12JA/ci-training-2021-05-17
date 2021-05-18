@@ -77,6 +77,10 @@ tasks.register('integrationTest', Test) {
 
     useJUnitPlatform()
 
+    systemProperty 'spring.datasource.url', findProperty('spring.datasource.url') ?: "jdbc:h2:mem:db;DB_CLOSE_DELAY=-1"
+    systemProperty 'spring.datasource.username', findProperty('spring.datasource.username') ?: "su"
+    systemProperty 'spring.datasource.password', findProperty('spring.datasource.password') ?: "su"
+
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     shouldRunAfter test

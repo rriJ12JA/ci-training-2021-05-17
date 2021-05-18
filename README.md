@@ -89,3 +89,19 @@ docker run
   --name employees-mariadb 
   mariadb
 ```
+
+## Integrációs tesztek futtatása
+
+* Módosítottuk a `build.gradle` állományt
+
+```shell
+gradlew 
+  -Pspring.datasource.url=jdbc:mariadb://localhost/employees 
+  -Pspring.datasource.username=employees  
+  -Pspring.datasource.password=employees 
+  clean integrationTest
+
+docker exec -it employees-mariadb mysql employees
+
+select * from employees;
+```
