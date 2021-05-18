@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh './gradlew test assemble'
+                sh './gradlew -PbuildNumber=${BUILD_NUMBER} test assemble'
             }
         }
     }
