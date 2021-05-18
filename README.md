@@ -151,4 +151,14 @@ docker run
   employees
 
 docker exec -it employees-app-mariadb mysql employees
+
+docker network inspect employees-net
+```
+
+## E2E teszt futtatása
+
+Az `integrationtest` könyvtárban a következő parancsot:
+
+```shell
+docker-compose up --abort-on-container-exit
 ```
