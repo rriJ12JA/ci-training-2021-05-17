@@ -51,3 +51,41 @@ docker run hello-world
 ```
 
 Közben kellett egy kilép/belép
+
+## Docker alapozó
+
+```shell
+docker version
+docker run hello-world
+docker run -p 8080:80 nginx
+docker run -d -p 8080:80 nginx
+docker ps
+docker stop 517e15770697
+docker run -d -p 8080:80 --name my-nginx nginx
+docker stop my-nginx
+docker ps -a
+docker start my-nginx
+docker logs -f my-nginx
+docker stop my-nginx
+docker rm my-nginx
+
+docker images
+docker rmi nginx
+
+docker exec -it my-nginx bash
+```
+
+
+## Adatbázis indítása integrációs tesztekhez
+
+```shell
+docker run 
+  -d
+  -e MYSQL_DATABASE=employees 
+  -e MYSQL_USER=employees 
+  -e MYSQL_PASSWORD=employees 
+  -e MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  -p 3306:3306 
+  --name employees-mariadb 
+  mariadb
+```
