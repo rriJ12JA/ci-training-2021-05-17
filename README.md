@@ -113,7 +113,42 @@ docker run -p 8080:8080 --name tr360-employee training360/employees-ci20210518
 docker stop tr360-employee
 ```
 
+JAR fájl létrehozása: `gradlew assemble`
+
 ```
 docker build -t employees .
 docker run -p 8080:8080 --name my-employee employees
+```
+
+```shell
+set DOCKER_BUILDKIT=0
+set COMPOSE_DOCKER_CLI_BUILD=0
+```
+
+## Hálózat
+
+```shell
+docker network create employees-net
+
+docker run 
+  -d
+  -e MYSQL_DATABASE=employees 
+  -e MYSQL_USER=employees 
+  -e MYSQL_PASSWORD=employees 
+  -e MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  -p 3307:3306 
+  --name employees-app-mariadb 
+  --network employees-net
+  mariadb
+
+docker run 
+  -e SPRING_DATASOURCE_URL=jdbc:mariadb://employees-app-mariadb/employees
+  -e SPRING_DATASOURCE_USERNAME=employees
+  -e SPRING_DATASOURCE_PASSWORD=employees
+  --network employees-net
+  --name employees-app
+  -p 8081:8080 
+  employees
+
+docker exec -it employees-app-mariadb mysql employees
 ```
