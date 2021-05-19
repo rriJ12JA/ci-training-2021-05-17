@@ -217,5 +217,7 @@ docker run --name nexus --detach
   sonatype/nexus3
 
 gradlew assemble publish
+
+_
 ```
 
